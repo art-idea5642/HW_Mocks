@@ -7,9 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -19,6 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee.getFirstName() + " " + employee.getSurname();
     }
 
+    @Override
     public void addEmployee(Employee employee) {
         if (StringUtils.isBlank(employee.getFirstName()) || StringUtils.isBlank(employee.getSurname())) {
             throw new IllegalArgumentException("Имя и фамилия не могут быть пустыми.");
@@ -37,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-
+    @Override
     public void removeEmployee(String name, String surname) {
         if (StringUtils.isBlank(name) || StringUtils.isBlank(surname)) {
             throw new IllegalArgumentException("Имя и фамилия не могут быть пустыми.");
@@ -53,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMap.remove(key);
     }
 
-
+    @Override
     public Employee findEmployee(String name, String surname) {
         if (StringUtils.isBlank(name) || StringUtils.isBlank(surname)) {
             throw new IllegalArgumentException("Имя и фамилия не могут быть пустыми.");
@@ -70,33 +69,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
-
+    @Override
     public Map<String, Employee> getAllEmployees() {
         return employeeMap;
     }
 
-    public Employee getEmployeeWithMaxSalary(String departmentId) {
-        return employeeMap.values().stream()
-                .filter(e -> e.getDepartmentId().equals(departmentId))
-                .max(Comparator.comparingDouble(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeNotFoundException("В отделе с таким ID нет сотрудников."));
-    }
-
-    public Employee getEmployeeWithMinSalary(String departmentId) {
-        return employeeMap.values().stream()
-                .filter(e -> e.getDepartmentId().equals(departmentId))
-                .min(Comparator.comparingDouble(Employee::getSalary))
-                .orElseThrow(() -> new EmployeeNotFoundException("В отделе с таким ID нет сотрудников."));
-    }
-
-    public List<Employee> getAllEmployeesByDepartment(String departmentId) {
-        return employeeMap.values().stream()
-                .filter(e -> e.getDepartmentId().equals(departmentId))
-                .collect(Collectors.toList());
-    }
-    public Map<String, List<Employee>> getAllEmployeesGroupedByDepartment() {
-        return employeeMap.values().stream()
-                .collect(Collectors.groupingBy(Employee::getDepartmentId));
-    }
 }
 

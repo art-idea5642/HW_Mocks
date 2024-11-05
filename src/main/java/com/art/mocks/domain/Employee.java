@@ -6,9 +6,9 @@ public class Employee {
     private final String firstName;
     private final String surname;
     private final double salary;
-    private final String departmentId;
+    private final int departmentId;
 
-    public Employee(String firstName, String surname, double salary, String departmentId) {
+    public Employee(String firstName, String surname, double salary, int departmentId) {
         this.firstName = firstName;
         this.surname = surname;
         this.salary = salary;
@@ -27,7 +27,7 @@ public class Employee {
         return salary;
     }
 
-    public String getDepartmentId() {
+    public int getDepartmentId() {
         return departmentId;
     }
 
@@ -36,10 +36,10 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Double.compare(employee.salary, salary) == 0 &&
-                firstName.equals(employee.firstName) &&
-                surname.equals(employee.surname) &&
-                departmentId.equals(employee.departmentId);
+        return Double.compare(salary, employee.salary) == 0 &&
+                departmentId == employee.departmentId
+                && Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(surname, employee.surname);
     }
 
     @Override
