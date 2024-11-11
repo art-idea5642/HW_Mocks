@@ -44,7 +44,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<Employee> getEmployeesByDepartment(int departmentId) {
         return employeeService.getAllEmployees().values().stream()
                 .filter(e -> e.getDepartmentId() == departmentId)
-                .sorted(comparing(Employee::getFirstName).thenComparing(Employee::getSurname)) // Сортировка по имени и фамилии
+                .sorted(comparing(Employee::getFirstName).thenComparing(Employee::getSurname))
                 .collect(toList());
     }
 

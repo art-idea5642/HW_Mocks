@@ -19,22 +19,22 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @GetMapping("/{id}/employees")
+    @GetMapping("/{departmentID}/employees")
     public List<Employee> getEmployeesByDepartment(@RequestParam int departmentID) {
         return departmentService.getEmployeesByDepartment(departmentID);
     }
 
-    @GetMapping("/{id}/salary/sum")
+    @GetMapping("/{departmentID}/salary/sum")
     public double getDepartmentSalarySum(@RequestParam int departmentID) {
         return departmentService.getDepartmentSalarySum(departmentID);
     }
 
-    @GetMapping("/{id}/salary/max")
+    @GetMapping("/{departmentID}/salary/max")
     public Employee getEmployeeWithMaxSalary(@RequestParam int departmentID) {
         return departmentService.getEmployeeWithMaxSalary(departmentID);
     }
 
-    @GetMapping("/{id}/salary/min")
+    @GetMapping("/{departmentID}/salary/min")
     public Employee getDepartmentMinSalary(@RequestParam int departmentID) {
         return departmentService.getEmployeeWithMinSalary(departmentID);
     }
